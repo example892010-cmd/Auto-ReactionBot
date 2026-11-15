@@ -1,16 +1,17 @@
 import os
-import logging
-import sys
-import platform
-import time
-
-from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 from telebot.async_telebot import AsyncTeleBot
 
-from dotenv import load_dotenv
-load_dotenv()
+# Checks Render's environment across all common names, with your token as a permanent fallback
+Token = (
+    os.getenv("BOT_TOKEN") or 
+    os.getenv("TELEGRAM_TOKEN") or 
+    os.getenv("API_TOKEN") or 
+    "8577590790:AAFzZxa-yhOYCI-tC32N3z5bslW8pGKv5lU"
+)
 
-Token = os.getenv("Token")
+if not Token:
+    raise ValueError("Telegram Bot Token is missing!")
+
 Bot = AsyncTeleBot(Token)
 
 # Define log directory
